@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        /* Define the container for the animated text */
+        .animation-container {
+            position: relative;
+            width: 300px;
+            height: 100px;
+        }
+
+        /* Define the text element initially hidden below the container */
+        .animated-text {
+            position: absolute;
+            bottom: -100px;
+            left: 0;
+            width: 100%;
+            transition: bottom 1s ease;
+        }
+
+        /* When the container is hovered, reveal the text by changing its position */
+        .animation-container:hover .animated-text {
+            bottom: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="animation-container">
+        <p class="animated-text">Text sliding in from the bottom!</p>
+    </div>
+</body>
+</html>

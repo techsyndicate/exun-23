@@ -1,1 +1,220 @@
-<a href="/login">Login</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nuxEland</title>
+    <script src="https://kit.fontawesome.com/0f20a2b955.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li class="nav-title">nuxEland</li>
+                <div class="links">
+                    <li>Contact Us</li>
+                    <li class="login-button"><a href="/login" class="login-link">Login</a> <i class="fa-solid fa-arrow-right"></i></li>
+                </div>
+            </ul>
+        </nav>
+    </header>
+
+
+    <div class="section">
+        <div class="texts">
+            <h1 class="heading-big">TRAVEL</h1>
+            <h1 class="heading-small">WITH FUN</h1>
+        </div>
+        <img class="image-right" src="/book.png" alt="">
+    </div>
+
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            height: 100vh;
+            padding: 0;
+            overflow-x: hidden;
+
+            background: #000;
+            color: #fff;
+            font-family: 'Outfit', sans-serif;
+        }
+        @font-face {
+            font-family: 'cursive';
+            src: url('/alsscrp.ttf');
+            font-weight: normal;
+            font-style: normal;
+        }
+        header {
+            margin: 0;
+            width: 100%;
+            height: 15vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        nav {
+            width: 90%;
+            height: 100%;
+        }
+        ul {
+            margin: 0;
+            height: 100%;
+
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+        ul > li {
+            list-style-type: none;
+        }
+        a {
+            text-decoration: none;
+            color: #fff;
+        }
+        .nav-title {
+            font-size: 4vw;
+            font-family: 'cursive';
+            color: #fff;
+            transition: all 500ms ease;
+            cursor: pointer;
+        }
+        .nav-title:hover {
+            color: #16e16e;
+        }
+        .login-button {
+            padding: 0.75vw;
+
+            border: 2px solid white;
+            border-radius: 2.5px;
+            cursor: pointer;
+            
+            transition: all 500ms ease;
+        }
+        .login-button:hover {
+            border-color: #16e16e;
+            border-radius: 30px;
+            .login-link {
+                color: #16e16e;
+            }
+            .fa-solid { 
+                color: #16e16e;
+            }
+        }
+        .login-link {
+            transition: all 500ms ease;
+        }
+        .fa-solid {
+            transition: all 500ms ease;
+        }
+        .links {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            gap: 3vw;
+        }
+        .links > li {
+            list-style-type: none;
+            color: #fff;
+            transition: all 500ms ease;
+            cursor: pointer;
+        }
+        .links > li:hover {
+            color: #16e16e;
+        }
+        .section {
+            perspective: 100px;
+            align-self: center;
+            width: 90%;
+            height: 85vh;
+            
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+        .section > img {
+            position: absolute;
+            width: 30vw;
+        }
+        .texts {
+            perspective: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+        }
+        .texts > h1 {
+            margin: 0;
+            font-size: 15vw;
+            color: #16e16e;
+            transform-style: preserve-3d;
+            transform: rotateX(5deg);
+        }
+        .heading-big {
+            font-size: 14vw !important;
+            margin: 0;
+        }
+        .heading-small {
+            z-index: 2;
+            margin-top: -5vw !important;
+        }
+        .image-right {
+            transform-style: preserve-3d;
+            transform: rotateX(5deg);
+            /* display: none; */
+        }
+        h1 {
+            -webkit-mask-image: linear-gradient(-75deg, rgba(0,0,0,.6) 30%, #000 50%, rgba(0,0,0,.6) 70%);
+            -webkit-mask-size: 200%;
+            animation: shine 1s infinite;
+        }
+        h1:hover {
+        }
+
+        @-webkit-keyframes shine {
+            from {
+                -webkit-mask-position: 150%;
+            }
+            
+            to {
+                -webkit-mask-position: -50%;
+            }
+        }
+    </style>
+
+
+ <script>
+    const bookImg = document.querySelector(".image-right");
+    const maxDistance = 50;
+    document.addEventListener('mousemove', function(event) {
+        const distanceX = event.clientX - window.innerWidth / 2;
+        const distanceY = event.clientY - window.innerHeight / 2;
+        const percentageX = (distanceX / window.innerWidth) * 100;
+        const percentageY = (distanceY / window.innerHeight) * 100;                
+        const moveX = (percentageX / 100) * maxDistance;
+        const moveY = (percentageY / 100) * maxDistance;
+        
+        const styles = {
+            transform: `translate(${moveX}px, ${moveY}px)`
+        };
+
+        const styleTiming = {
+            duration: 20000,
+        };
+
+        bookImg.animate(styles,styleTiming)
+    });
+
+ </script>
+</body>
+</html>
