@@ -1,0 +1,12 @@
+<div class="chats">
+    <% for (var i = 0; i < reqChats.length; i++) { %>
+        <%= reqChats[i].name %>: <%= reqChats[i].text %> (<%= reqChats[i].date %> at <%= reqChats[i].time %>)
+        <br>
+        <!-- <%= reqChats %> -->
+    <% } %>
+</div>
+<br>
+<form action="/forums/post" method="post">
+    <input type="text" name="text">
+    <button type="submit">Submit</button>
+</form>

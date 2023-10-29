@@ -1,0 +1,14 @@
+Issue The Book
+
+Issued: <%= user.issued %>
+Issued Time: <%= user.issuedTime %>
+
+<% if (user.issued) { %>
+    <form action="/issueBook/return" method="post">
+        <button type="submit">Return</button>
+    </form>
+<% } else { %>
+    <form action="/issueBook/create-checkout-session" method="post">
+        <button type="submit">Issue</button>
+    </form>
+<% } %>
