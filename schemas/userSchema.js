@@ -21,6 +21,11 @@ const userSchema = new Schema({
         type: String,
         default: "",
         required: false
+    },
+    waitlist: {
+        type: Array,
+        default: false,
+        required: false
     }
 })
 

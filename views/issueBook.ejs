@@ -1,14 +1,48 @@
 Issue The Book
+<br>
+<br>
+<% if(canIssue) { %>
+    Issued: <%= user.issued %> <br>
+    Issued Time: <%= user.issuedTime %>
+    <br>
+    <% if (user.issued) { %>
+        <form action="/issueBook/return" method="post">
+            <button type="submit">Return</button>
+        </form>
+    <% } else { %>
+        <form action="/issueBook/create-checkout-session" method="post">
+            <button type="submit">Issue</button>
+        </form>
+    <% } %>
+<% } else { %>
+    <p>You cannot issue the book as someone already has it, try again later or add your name to waitlist</p>
+<% } %>
 
-Issued: <%= user.issued %>
-Issued Time: <%= user.issuedTime %>
+
+<% var found = false; %>
+<% for (var i = 0; i < waitlist.length; i++) { %>
+    <% if (user.email === waitlist[i]) { %>
+        <% found = true %>
+    <% } %>
+<% } %>
 
 <% if (user.issued) { %>
-    <form action="/issueBook/return" method="post">
-        <button type="submit">Return</button>
-    </form>
+    <% } else if (found) { %>
+        <form action="/issueBook/removewaitlist" method="post">
+            <button type="submit">Remove from waitlist</button>
+        </form>
 <% } else { %>
-    <form action="/issueBook/create-checkout-session" method="post">
-        <button type="submit">Issue</button>
+    <form action="/issueBook/waitlist" method="post">
+        <button type="submit">Add to waitlist</button>
     </form>
 <% } %>
+
+waitlist: <br>
+<% if (waitlist !== [] && waitlist !== undefined) { %>
+    <% for (var i = 0; i < waitlist.length; i++) { %>
+        <p><%= waitlist[i] %></p>
+    <% } %>
+<% } else { %>
+    <p>The waitlist is empty</p>
+<% } %>
+
