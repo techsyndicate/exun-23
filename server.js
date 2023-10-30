@@ -17,7 +17,8 @@ const indexRouter = require('./routers/indexRouter'),
     regRouter = require('./routers/regRouter.js'),
     issueRouter = require('./routers/issueRouter.js'),
     forumsRouter = require('./routers/forumsRouter.js'),
-    dashboardRouter = require('./routers/dashboard.js');
+    dashboardRouter = require('./routers/dashboard.js'),
+    socialRouter = require('./routers/socialRouter.js')
 
 const app = express(),
     PORT = 3000;
@@ -26,7 +27,7 @@ app.set('view engine', 'ejs')
 app.use(express.static('public'))
 app.use(express.json({ limit: '1mb' }), express.urlencoded({ extended: true, limit: '1mb' }))
 app.use(flash())
-app.use('/', express.static('public'))
+app.use('/', express.static('public'));
 
 
 
@@ -59,6 +60,7 @@ app.use('/dashboard', dashboardRouter)
 app.use('/login', loginRouter)
 app.use('/issueBook', issueRouter)
 app.use('/forums', forumsRouter)
+app.use('/social', socialRouter)
 
 
 // testing
