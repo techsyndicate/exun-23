@@ -16,7 +16,7 @@ router.get('/post/:id', async (req, res) => {
     if (!reqSocial) {
         return res.send("Not Found");
     } else {
-        res.render('user_post', {reqSocial})
+        res.render('user_post', {reqSocial, currentUserName: req.user.email})
     }
 })
 
@@ -56,6 +56,41 @@ router.post('/post/:id/comment', async (req, res) => {
     })
     console.log("DONE")
     res.redirect('/social/post/' + req.params.id)
+})
+
+router.post('/likePost/:id', async (req, res) => {
+    const weirdArr = []
+    const {id} = req.params;
+    const currentPost = await Social.findById(id)
+    if (!currentPost) {
+        return res.redirect('/social')
+    }
+    const originallyLiked = currentPost.likedBy
+    if (originallyLiked.includes(req.user.email)) {
+        for (let i = 0; i < originallyLiked.length; i++) {
+            if (originallyLiked[i] === req.user.email) {
+                console.log("Already Liked Dumbass")
+            } else {
+                weirdArr.push(originallyLiked[i])
+            }
+        }
+        await Social.findOneAndUpdate({_id: req.params.id}, {
+            $set: {
+                likedBy: weirdArr,
+                likes: weirdArr.length
+            }
+        })
+        return res.redirect(`/social/post/${id}`)
+    }
+    originallyLiked.push(req.user.email)
+    await Social.findOneAndUpdate({_id: req.params.id}, {
+        $set: {
+            likedBy: originallyLiked,
+            likes: originallyLiked.length
+        }
+    })
+    console.log(await Social.findById(id));
+    res.redirect(`/social/post/${id}`)
 })
 
 module.exports = router

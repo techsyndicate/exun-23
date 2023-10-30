@@ -18,7 +18,12 @@ const socialSchema = new Schema({
         required: true,
         default: 0
     },
-    name: reqString
+    name: reqString,
+    likedBy: {
+        type: Array,
+        required: true,
+        default: []
+    }
 })
 
 

@@ -3,45 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Post</title>
 </head>
 <body>
     <%= reqSocial.caption %>
     <%= reqSocial.text %>
     <%= reqSocial.email %>
     <%= reqSocial.dateAndTime %>
+    <%= reqSocial.likedBy %>
     <form method="POST" action="/social/post/<%= reqSocial.id %>/comment">
         <input type="text" name="comment" placeholder="Comment">
-        <input type="text" id="like-input" value="2" style="display: none;" name="liked">
         <input type="submit">
     </form>
-    <button id="like-button">Like</button>
-    <button id="dislike-button">Dislike</button>
-    <button id="remove" style="display: none;">Remove</button>
+    <form method="POST" action="/social/likePost/<%= reqSocial.id %>">
+        <% if (reqSocial.likedBy.includes(currentUserName)) { %>
+        <input type="submit" value="Unlike" name="submit">
+        <% } else { %>
+        <input type="submit" value="Like" name="submit">
+        <% } %>
+    </form>
     <% for (let i = 0; i < reqSocial.comments.length; i++) { %>
         <p><%= reqSocial.comments[i].comment %> posted by <%= reqSocial.comments[i].email %> on <%= reqSocial.comments[i].timeStamp %></p>
     <% } %>
-    <script>
-        const likeButton = document.getElementById('like-button');
-        const dislikeButton = document.getElementById('dislike-button');
-        const removeLike = document.getElementById('remove')
-        const likeInput = document.getElementById('like-input');
-
-        likeButton.addEventListener('click',() => {
-            likeInput.value = "1"
-            removeLike.style.display = "block"
-            console.log(likeInput.value);
-        });
-        dislikeButton.addEventListener('click',() => {
-            likeInput.value = "0"
-            removeLike.style.display = "block"
-            console.log(likeInput.value);
-        });
-        removeLike.addEventListener('click',() => {
-            likeInput.value = "2"
-            removeLike.style.display = "none"
-            console.log(likeInput.value);
-        });
-    </script>
 </body>
 </html>
