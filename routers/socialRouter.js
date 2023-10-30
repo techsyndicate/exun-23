@@ -1,8 +1,10 @@
 const router = require('express').Router()
 const Social = require('../schemas/socialSchema.js')
 
-router.get('/', (req, res) => {
-    res.render('social')
+router.get('/', async (req, res) => {
+    const socialChats = await Social.find({});
+    console.log(socialChats);
+    res.render('social', {socialChats})
 })
 
 router.get('/post', (req, res) => {
@@ -21,8 +23,13 @@ router.get('/post/:id', async (req, res) => {
 router.post('/post', async (req, res) => {
     const {caption, text} = req.body
     const email = req.user.email
-    const newPost = new Social({text, caption, email})
+    const name = req.user.name
+    const date = new Date();
+    var chatDateArr = date.toDateString().split(' ');
+    var dateAndTime = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
+    const newPost = new Social({text, caption, email, dateAndTime, name})
     await newPost.save()
+    console.log(newPost)
     res.redirect("/social/post/" + newPost.id)
 })
 

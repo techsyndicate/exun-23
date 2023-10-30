@@ -29,8 +29,7 @@ async function loginUser(req, res, next) {
           // res.send([{ msg: "Successfully Authenticated", sucess: true }]);
           res.redirect('/dashboard')
         });
-      }
-    })(req, res, next);
+      }})(req, res, next);
   }
 
 

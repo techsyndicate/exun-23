@@ -7,11 +7,7 @@ const socialSchema = new Schema({
     email: reqString,
     caption: reqString,
     text: reqString,
-    dateAndTime: {
-        type: Date,
-        default: Date.now(),
-        required: true
-    },
+    dateAndTime: reqString,
     comments: {
         type: Array,
         required: true,
@@ -21,7 +17,9 @@ const socialSchema = new Schema({
         type: Number,
         required: true,
         default: 0
-    }
+    },
+    name: reqString
 })
+
 
 module.exports = mongoose.model("Social", socialSchema)
