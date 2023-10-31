@@ -25,7 +25,7 @@
     <div class="comments-section">
 
         <form method="POST" action="/forums/reply/<%= forum.id %>">
-            <input type="text" class="comment-input" name="reply" placeholder="Reply">
+            <input type="text" required class="comment-input" name="reply" placeholder="Reply">
             <input class="button" type="submit">
         </form>
         
@@ -48,9 +48,10 @@
     .box {
         width: 50vw;
         margin: auto;
-        border: 4px solid #AD4569;
-        padding: 10px;
-        color: #AD4569
+        border: 2px solid #AD4569;
+        padding: 24px;
+        color: #AD4569;
+        border-radius: 15px;
     }
 
     p {
