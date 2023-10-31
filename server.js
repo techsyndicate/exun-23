@@ -9,8 +9,9 @@ const express = require('express'),
     session = require('cookie-session'),
     passport = require('passport'),
     passportInit = require('./utils/passportConfig.js'),
-    flash = require('express-flash');
-
+    flash = require('express-flash'),
+    {ensureAuthenticated, forwardAuthenticated} = require('./utils/auth.js')
+    
 // routers
 const indexRouter = require('./routers/indexRouter'),
     loginRouter = require('./routers/loginRouter'),
@@ -57,12 +58,12 @@ mongoose.connect(process.env.MONGO_URI)
 // routing
 app.use('/', indexRouter)
 app.use('/register', regRouter)
-app.use('/dashboard', dashboardRouter)
-app.use('/login', loginRouter)
-app.use('/issueBook', issueRouter)
-app.use('/forums', forumsRouter)
-app.use('/social', socialRouter)
-app.use('/journal', journalRouter)
+app.use('/dashboard', ensureAuthenticated, dashboardRouter)
+app.use('/login', forwardAuthenticated, loginRouter)
+app.use('/issueBook', ensureAuthenticated, issueRouter)
+app.use('/forums', ensureAuthenticated, forumsRouter)
+app.use('/social', ensureAuthenticated, socialRouter)
+app.use('/journal', ensureAuthenticated, journalRouter)
 
 
 // testing

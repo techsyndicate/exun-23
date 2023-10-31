@@ -31,21 +31,22 @@ router.post('/deletePost/:id', async (req, res) => {
 
 router.post('/post', async (req, res) => {
     const {caption, text} = req.body
+    const newText = text.replace(/\n/g, '<br>')
     const email = req.user.email
     const name = req.user.name
     const date = new Date();
     var chatDateArr = date.toDateString().split(' ');
     var dateAndTime = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
-    const newPost = new Social({text, caption, email, dateAndTime, name})
+    const newPost = new Social({text: newText, caption, email, dateAndTime, name})
     await newPost.save()
     console.log(newPost)
     res.redirect("/social/post/" + newPost.id)
-})
+});
 
 router.post('/post/:id/comment', async (req, res) => {
     const requiredPost = await Social.findById(req.params.id)
     const {comment} = req.body
-    const email = req.user.email
+    const name = req.user.name
     const originalComments = requiredPost.comments
     console.log(originalComments)
     const date = new Date();
@@ -53,7 +54,7 @@ router.post('/post/:id/comment', async (req, res) => {
     var chatDate = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
     const commentObj = {
         comment: comment,
-        email: email,
+        name: name,
         timeStamp: chatDate
     }
     originalComments.push(commentObj)

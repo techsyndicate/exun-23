@@ -6,12 +6,14 @@
     <title>Post</title>
 </head>
 <body>
-    <%= reqSocial.caption %>
+    <%- include('./partials/navbar') %>
+
+    <!-- <%= reqSocial.caption %>
     <%= reqSocial.text %>
     <%= reqSocial.email %>
     <%= reqSocial.dateAndTime %>
-    <%= reqSocial.likes %>
-    <form method="POST" action="/social/post/<%= reqSocial.id %>/comment">
+    <%= reqSocial.likes %> -->
+    <!-- <form method="POST" action="/social/post/<%= reqSocial.id %>/comment">
         <input type="text" name="comment" placeholder="Comment">
         <input type="submit">
     </form>
@@ -29,6 +31,118 @@
     <% } %>
     <% for (let i = 0; i < reqSocial.comments.length; i++) { %>
         <p><%= reqSocial.comments[i].comment %> posted by <%= reqSocial.comments[i].email %> on <%= reqSocial.comments[i].timeStamp %></p>
-    <% } %>
+    <% } %> -->
+
+    <div class="content">
+        <div class="post">
+            <div class="section">
+                <p class="texts">Posted by <b><%= reqSocial.name %></b> on <b><%= reqSocial.dateAndTime %></b></p>
+                <p class="texts big"><B><%= reqSocial.caption %></B></p>
+                <br>
+                <p class="texts" id="demo_p"><%= reqSocial.text %></p>
+            </div>
+            <div class="section2">
+                <form method="POST" style="display: flex; flex-direction: row; gap: 1vw; align-items: center;" action="/social/likePost/<%= reqSocial.id %>">
+                    <% if (reqSocial.likedBy.includes(currentUserName)) { %>
+                    <button type="submit" class="button-side"><i class="fa-solid fa-thumbs-up"></i></button>
+                    <p class="texts" style="font-size: 3vw;"><%= reqSocial.likes %> </p>
+                    <% } else { %>
+                        <button type="submit" class="button-side"><i class="fa-regular fa-thumbs-up"></i></button>
+                        <p class="texts" style="font-size: 3vw;" ><%= reqSocial.likes %> </p>
+                    <% } %>
+                </form>
+                <% if (isAdmin) { %>
+                    <form method="POST" action="/social/deletePost/<%= reqSocial.id %>">
+                        <button type="submit" class="button-side"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                <% } %>
+            </div>
+        </div>
+        <div class="comments-section">
+            <% for (let i = 0; i < reqSocial.comments.length; i++) { %>
+                <p class="text-comment"><%= reqSocial.comments[i].name %>:<%= reqSocial.comments[i].comment %> <%= reqSocial.comments[i].timeStamp %></p>
+            <% } %>
+        </div>
+    </div>
 </body>
+<style>
+    body {
+        height: 100vh;
+        width: 100%;
+    }
+    .content {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .button-side {
+        padding: 12px;
+        font-size: 3.5vw;
+
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        
+        transition: all 500ms ease;
+    }
+    .comments-section {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10vh;
+        gap: 1vw;
+    }
+    .button-side:hover {
+        color: #AD4569;
+    }
+    .text-comment {
+        font-size: 2vw;
+        margin: 0;
+    }
+    .post {
+        height: 50%;
+        width: 100%;
+        display: flex;
+    }
+    .comments-section {
+        width: 90%;
+        align-self: center;
+    }
+    .section {
+        /* margin-top: 10vh; */
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        height: auto;
+        width: 40%;
+        align-self: start;
+        margin-left: 5%;
+        margin-top: 2.5%;
+
+        border: 2px solid #AD4569;
+        padding: 24px;
+    }
+    .section2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+        gap: 4vw;
+    }
+    .texts {
+        margin: 0;
+        font-size: 1.5vw;
+    }
+    .big {
+        font-size: 3vw;
+    }
+</style>
 </html>
+
+<script>
+    var demo_p = document.getElementById('demo_p')
+    var currentText = demo_p.innerHTML
+    var newText = currentText.replaceAll('&lt;br&gt;', '<br>')
+    demo_p.innerHTML = newText
+</script>
