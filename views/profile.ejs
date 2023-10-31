@@ -6,13 +6,84 @@
     <title>Profile</title>
 </head>
 <body>
-    <p>Email: <%= user.email %></p>
-    <p>Name: <%= user.name %></p>
-    <p>Created On: <%= user.createdOn %></p>
-    <% if (user.issued) { %>
-        <p>Issued On: <%= user.issuedTime %></p>
-        <p>To Be Returned On: <%= user.returnTime %></p>
-    <% } %>
-    <a href="/profile/edit">Edit Profile</a>
+    <%- include('./partials/navbar') %>
+
+    <h1 class="heading">HELLO, <%= user.name %></h1>
+
+    <div class="content">
+        <div class="left">
+            <p class="texts"><b class="stylish">Email:</b> <%= user.email %></p>
+            <p class="texts"><b class="stylish">Name:</b> <%= user.name %></p>
+            <p class="texts"><b class="stylish">Created On:</b> <%= user.createdOn %></p>
+            <% if (user.issued) { %>
+                <p class="texts"><b class="stylish">Issued On:</b> <%= user.issuedTime %></p>
+            <% } %>
+            <% if (user.issued) { %>
+                <p class="texts"><b class="stylish">To Be Returned On:</b> <%= user.returnTime %></p>
+            <% } %>
+        </div>
+        <div class="right">
+            <img src="/user.png" class="img-right" alt="">
+        </div>
+    </div>
+    <a href="/profile/edit" class="go-link">Edit Profile</a>
 </body>
+<style>
+    body {
+        height: auto;
+        width: 100%;
+    }
+    .heading {
+        font-family: 'cursive2';
+        font-size: 5vw;
+        align-self: center;
+        margin: 0 auto;
+    }
+    .go-link {
+        text-decoration: none;
+        color: #698EFF;
+        border: 2px solid #698EFF;
+        border-radius: 5px;
+        padding: 12px;
+        transition: all 500ms ease;
+        align-self: center;
+    }
+    .go-link:hover {
+        border-radius: 50px;
+        color: #AD4569;
+        border-color: #AD4569;
+    }
+    .stylish {
+        color: #AD4569;
+    }
+    .content {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+    .left {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        align-items: center;
+        gap: 1vw;
+    }
+    .right {
+        display: flex;
+        flex-direction: column;
+        width: 30%;
+        align-items: center;
+    }
+    .img-right {
+        aspect-ratio: 1;
+        width: 25vw;
+    }
+    .texts {
+        font-size: 2vw;
+        margin: 0;
+    }
+</style>
 </html>
