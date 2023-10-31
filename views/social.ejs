@@ -1,7 +1,10 @@
 <%- include('./partials/navbar') %>
 
 <div class="section">
-    <h1 class="heading-big">POSTS</h1>
+    <div class="texts">
+        <h1 class="heading-big">POSTS</h1>
+        <a class="go-post" href="/social/post">Make your own post</a>
+    </div>
     <div class="posts">
         <% for (let i = 0; i < socialChats.length; i++) { %>
             <div class="post">
@@ -25,6 +28,24 @@
         font-family: 'cursive2';
         color: #AD4569;
         font-size: 5vw;
+    }
+    .texts {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .go-post {
+        text-decoration: none;
+        color: #698EFF;
+        border: 2px solid #698EFF;
+        border-radius: 5px;
+        padding: 12px;
+        transition: all 500ms ease;
+    }
+    .go-post:hover {
+        color: #AD4569;
+        border-color: #AD4569;
     }
     .post {
         display: flex;
