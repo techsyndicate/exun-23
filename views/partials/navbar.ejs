@@ -20,13 +20,13 @@
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
     body {
-        color: #fff !important;
+        color: #698EFF !important;
         display: flex;
         flex-direction: column;
         margin: 0;
         height: auto;
         padding: 0;
-        overflow: hidden;
+        overflow-x: hidden;
 
         /* background: #000; */
         background: linear-gradient(0deg, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.65) 100%), linear-gradient(251deg, #C6729E 0%, #7146CC 100%);            color: #ffffff00;
@@ -53,6 +53,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        z-index: 1000;
     }
     .navbar {
         width: 90%;
@@ -65,7 +66,7 @@
     .login-button {
         padding: 0.75vw;
 
-        border: 2px solid rgba(255, 255, 255, 0.66);
+        border: 2px solid #698EFF;
         border-radius: 2.5px;
         cursor: pointer;
         
@@ -98,7 +99,7 @@
     .title {
         font-size: 4vw;
         font-family: 'cursive';
-        color: #fff;
+        color: #698EFF;
         transition: all 500ms ease;
         cursor: pointer;
         margin: 0;
@@ -108,8 +109,8 @@
     }
     .link {
         text-decoration: none;
-        color: white;
-        border: 2px solid white;
+        color: #698EFF;
+        border: 2px solid #698EFF;
         border-radius: 5px;
         padding: 12px;
         transition: all 500ms ease;

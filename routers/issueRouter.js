@@ -13,7 +13,7 @@ const ejs = require('ejs');
 router.get('/', async (req,res) => {
   const user = req.user,
         book = await User.findOne({book: "nuxEland"});
-  
+
   const users = await User.find({})
   var canIssue = true;
   for (var i = 0; i < users.length; i++) {
@@ -28,9 +28,16 @@ router.get('/', async (req,res) => {
   }
   console.log(users)
   const waitlist = book.waitlist;
+  var nameInWaitlist = false;
+
+  for (let i = 0; i < waitlist.length; i++) {
+    if (user.email === waitlist[i]) {
+      nameInWaitlist = true;
+    }
+  }
   // console.log(book.waitlist)
   // for (var i = 0; i < book.length)
-  res.render('issueBook', {user, waitlist, canIssue});
+  res.render('issueBook', {user, waitlist, canIssue, nameInWaitlist});
 });
 
 router.post('/return', async (req,res) => {

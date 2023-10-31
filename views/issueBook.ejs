@@ -2,30 +2,149 @@
 
 <div class="section">
     <div class="left">
-        <h1 class="heading-big">ISSUE BOOK</h1>
+        <div class="texts">
+            <h1 class="heading-big">ISSUE BOOK</h1>
+            <p class="left-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic, ut?</p>
+            <% if (user.issued) { %>
+                <form action="/issueBook/return" method="post">
+                    <button type="submit" class="issue-button">Return</button>
+                </form>
+            <% } else if (!canIssue) { %>
+                <% if (nameInWaitlist) { %>
+                    <form action="/issueBook/removewaitlist" method="post">
+                        <button type="submit" class="issue-button">Remove from Waitlist</button>
+                    </form>
+                <% } else { %>
+                    <form action="/issueBook/waitlist" method="post">
+                        <button type="submit" class="issue-button">Add to waitlist</button>
+                    </form>
+                    <% } %>
+            <% } else { %>
+                <form action="/issueBook/create-checkout-session" method="post">
+                    <button type="submit" class="issue-button">Issue</button>
+                </form>
+            <% } %>
+        </div>
+        <img src="/nuxelandbook.png" class="image-right" alt="">
     </div>
-    <div class="right">
-        <img src="/" alt="">
-    </div>
-    
 </div>
+<hr width="100%" style="height: 1px; background: #AD4569; border: none;">
+<div class="waitlist">
+    <h1 class="doosra">WAITLIST</h1>
+    <ul class="wailistList">
+        <% for (let i = 0; i < waitlist.length; i++) { %>
+            <li class="wailistUser"><%= waitlist[i] %></li>
+            <% } %>
+        </ul>
+    </div>
+    <hr width="100%" style="height: 1.5px; background: #AD4569; border: none; margin-bottom: 2vw">
 
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;300;400;500;600;700;800;900&display=swap');
     .section {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        gap: 20vw;
 
         height: 100%;
         width: 100%;
+        margin-top: -5vw;
+    }
+    .waitlistList {
+
+    }
+    .wailistUser {
+        list-style-type: decimal;
+        color: #698EFF;
+        font-size: 2vw;
     }
     .heading-big {
-        font-size: 7vw !important;
+        font-size: 10vw !important;
         margin: 0;
         font-weight: 400;
         color: #AD4569;
         font-family: 'cursive2';
+        width: 30%;
+        line-height: 0.8;
+        margin-right: -2vw;
+    }
+    .waitlist {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .doosra {
+        /* align-self: center; */
+        font-size: 10vw !important;
+        margin: 0;
+        font-weight: 400;
+        color: #698EFF;
+        font-family: 'cursive2';
+    }
+    .left {
+        /* flex-grow: 1; */
+        /* width: 50%; */
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .texts {
+        width: 35%;
+        margin-right: -10vw;
+    }
+    img {
+        width: 45vw;
+        z-index: -100000000;
+        margin-left: 5vw;
+        transform: rotate(-5deg)
+    }
+    .left-text {
+        color: #AD4569;
+        font-size: 2.5vw;
+        width: 75%;
+        margin: 0;
+        margin-right: -2vw;
+    }
+    .issue-button {
+        margin-top: 1vw;
+        outline: none;
+        border: solid 2px #AD4569;
+        padding: 12px;
+        border-radius: 15px;
+        font-family: 'Outfit' !important;
+        font-size: 1.5vw;
+        background: transparent;
+        cursor: pointer;
+        transition: all 500ms ease-in-out;
+    }
+    .issue-button:hover {
+        border-radius: 50px;
     }
 </style>
+
+<script>
+    const bookImg = document.querySelector(".image-right");
+    const maxDistance = 10;
+    document.addEventListener('mousemove', function(event) {
+        const distanceX = event.clientX - window.innerWidth / 2;
+        const distanceY = event.clientY - window.innerHeight / 2;
+        const percentageX = (distanceX / window.innerWidth) * 100;
+        const percentageY = (distanceY / window.innerHeight) * 100;                
+        const moveX = (percentageX / 100) * maxDistance;
+        const moveY = (percentageY / 100) * maxDistance;
+        
+        const styles = {
+            transform: `rotateZ(${moveX}deg) rotateY(${moveY}deg)`
+        };
+
+        const styleTiming = {
+            duration: 20000,
+        };
+
+        bookImg.animate(styles,styleTiming)
+    });
+</script>
 

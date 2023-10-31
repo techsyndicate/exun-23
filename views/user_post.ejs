@@ -10,7 +10,7 @@
     <%= reqSocial.text %>
     <%= reqSocial.email %>
     <%= reqSocial.dateAndTime %>
-    <%= reqSocial.likedBy %>
+    <%= reqSocial.likes %>
     <form method="POST" action="/social/post/<%= reqSocial.id %>/comment">
         <input type="text" name="comment" placeholder="Comment">
         <input type="submit">
