@@ -1,6 +1,76 @@
-<% for (let i = 0; i < socialChats.length; i++) { %>
-    <p><%= socialChats[i].name %>: <%= socialChats[i].caption %></p>
-    <p>Text: <%= socialChats[i].text %></p>
-    <p>Posted on <%= socialChats[i].dateAndTime %></p>
-    <a href="/social/post/<%= socialChats[i].id %>">Go TO POST</a>
-<% } %>
+<%- include('./partials/navbar') %>
+
+<div class="section">
+    <h1 class="heading-big">POSTS</h1>
+    <div class="posts">
+        <% for (let i = 0; i < socialChats.length; i++) { %>
+            <div class="post">
+                <p class="post-link post-text-small">By <B><%= socialChats[i].name %></B> on <b><%= socialChats[i].dateAndTime %></b></p>
+                <p class="post-link post-text"><b><%= socialChats[i].caption %></b></p>
+                <a class="post-link go-link" href="/social/post/<%= socialChats[i].id %>">Go to post</a>
+            </div>
+        <%  } %>
+    </div>
+</div>
+
+
+<style>
+    .section {
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+        align-self: center;
+    }
+    .heading-big {
+        font-family: 'cursive2';
+        color: #AD4569;
+        font-size: 5vw;
+    }
+    .post {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        gap: 0.5vw;
+        border-radius: 10px;
+        border: 2px #AD4569 solid;
+        width: 50%;
+        padding: 12px;
+    }
+    .post-link {
+        margin: 0;
+    }
+    .post-text-small {
+        font-size: 1vw;
+        color: #AD4569;
+    }
+    .post-text {
+        font-size: 2vw;
+        color: #AD4569;
+        width: 100%;
+        word-wrap: break-word;
+    }
+    .go-link {
+        text-decoration: none;
+        color: #698EFF;
+        border: 2px solid #698EFF;
+        border-radius: 5px;
+        padding: 12px;
+        transition: all 500ms ease;
+        align-self: center;
+    }
+    .go-link:hover {
+        border-radius: 50px;
+        color: #AD4569;
+        border-color: #AD4569;
+    }
+    .posts {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 3vw;
+        margin-bottom: 2vw;
+    }
+</style>
