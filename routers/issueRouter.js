@@ -74,7 +74,7 @@ router.post('/return', async (req,res) => {
       }
     });
     const user = req.user
-    await sendMail('groverbhavit@gmail.com', 'Book Issued', 'Book Issued', await ejs.renderFile(__dirname + "/../views/bookIssuedMail.ejs", {user}))
+    await sendMail(req.user.email, 'Book Issued', 'Book Issued', null)
     console.log("removed from waitlist automatically",waitlist_users)
   }
   res.redirect('/issueBook')
@@ -101,7 +101,7 @@ router.post('/create-checkout-session', async (req, res) => {
     issueDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
     var returnDate = (date2.getDate()) + '/' + (date2.getMonth() + 1) + '/' + date2.getFullYear()
     // console.log(finalDate)
-    await sendMail('groverbhavit@gmail.com', 'Book Issued', 'Book Issued', await ejs.renderFile(__dirname + "/../views/bookIssuedMail.ejs", {user}))
+    await sendMail(req.user.email, 'Book Issued', 'Book Issued', null)
     await User.updateOne({email: req.user.email}, {$set: {issued: true, issuedTime: issueDate, returnTime: returnDate}})
     res.redirect(303, session.url);
   });
@@ -134,10 +134,14 @@ router.post('/removewaitlist', async (req, res) => {
   });
 
   console.log("removed",waitlist_users)
-  await sendMail('groverbhavit@gmail.com', 'Removed from Waitlist', 'You were removed from the Waitlist and your money has been sent back to your account', null)
+  await sendMail(req.user.email, 'Removed from Waitlist', 'You were removed from the Waitlist and your money has been sent back to your account', null)
 
   res.redirect('/issueBook')
 });
+
+router.get('/success_waitlist', (req, res) => {
+  res.render('success_waitlist', {user: req.user})
+})
 
 router.post('/waitlist', async (req,res) => {
   const user = req.user,
@@ -153,10 +157,10 @@ router.post('/waitlist', async (req,res) => {
             },
           ],
           mode: 'payment',
-          success_url: `${DOMAIN}/success`,
+          success_url: `${DOMAIN}/success_waitlist`,
           cancel_url: `${DOMAIN}/`,
         });
-        await sendMail('groverbhavit@gmail.com', 'Added to Waitlist', 'Added to Waitlist', null)
+        await sendMail(req.user.email, 'Added to Waitlist', 'Added to Waitlist', null)
         var newWaitlist = waitlist
         
         newWaitlist.push(email)
