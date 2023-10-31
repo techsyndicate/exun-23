@@ -1,3 +1,13 @@
+<!-- <p><b>Heading: </b><%= forum.heading %></p>
+<p><b>Text:</b> <%= forum.text %></p>
+<p><b>Replies:</b></p>
+<% for (let j = 0; j < forum.replies.length; j++) { %>
+<p><%= forum.replies[j].reply %>, <b>replied by </b><%= forum.replies[j].name %> <b>on</b> <%= forum.replies[j].date %></p>
+<% } %>
+<form action="/forums/reply/<%= forum.id %>" method="POST">
+    <input type="text" name="reply" placeholder="Enter Reply:">
+    <input type="submit">
+</form> -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,15 +16,161 @@
     <title>Forum</title>
 </head>
 <body>
-    <p><b>Heading: </b><%= forum.heading %></p>
-    <p><b>Text:</b> <%= forum.text %></p>
-    <p><b>Replies:</b></p>
-    <% for (let j = 0; j < forum.replies.length; j++) { %>
-    <p><%= forum.replies[j].reply %>, <b>replied by </b><%= forum.replies[j].name %> <b>on</b> <%= forum.replies[j].date %></p>
-    <% } %>
-    <form action="/forums/reply/<%= forum.id %>" method="POST">
-        <input type="text" name="reply" placeholder="Enter Reply:">
-        <input type="submit">
-    </form>
+    <%- include('./partials/navbar') %>
+    <div class="box">
+        <p>Posted On <b><%= forum.date %></b> By <b><%= forum.name %></b></p>
+        <h1><%= forum.heading %></h1>
+        <p class="text"><%= forum.text %></p>
+    </div>
+    <div class="comments-section">
+
+        <form method="POST" action="/forums/reply/<%= forum.id %>">
+            <input type="text" class="comment-input" name="reply" placeholder="Reply">
+            <input class="button" type="submit">
+        </form>
+        
+        <% for (let i = 0; i < forum.replies.length; i++) { %>
+            <div class="comment">
+                <div class="something">
+                    <div class="upper-text">
+                        <p class="creds"><%= forum.replies[i].name %></p>
+                        <p class="creds">|</p>
+                        <p class="creds"><%= forum.replies[i].date %></p>
+                    </div>
+                    <p class="text-comment"><%= forum.replies[i].reply %></p>
+                </div>
+            </div>
+            <hr width="100%" style="height: 1.5px; background: #AD4569; border: none; margin-bottom: 2vw">
+            <% } %>
+    </div>
 </body>
+<style>
+    .box {
+        width: 50vw;
+        margin: auto;
+        border: 4px solid #AD4569;
+        padding: 10px;
+        color: #AD4569
+    }
+
+    p {
+        margin: 0.25vw;
+    }
+
+    h1 {
+        color: #AD4569;
+        font-size: 3em;
+        margin: 0px;
+    }
+
+    .text {
+        color: #AD4569;
+        font-size: 1.5em;
+    }
+
+    .comments-section {
+        display: flex;
+        flex-direction: column;
+        margin-top: 10vh;
+        gap: 1vw;
+        justify-content: center;
+    }
+    .button-side:hover {
+        color: #AD4569;
+    }
+    .text-comment {
+        width: fit-content;
+        font-size: 2vw;
+        margin: 0;
+        font-weight: 600;
+    }
+    .post {
+        height: 50%;
+        width: 100%;
+        display: flex;
+    }
+    .comments-section {
+        width: 90%;
+        align-self: center;
+        margin-bottom: 2vw;
+    }
+    .section {
+        /* margin-top: 10vh; */
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center; */
+        height: auto;
+        width: 40%;
+        align-self: start;
+        margin-left: 5%;
+        margin-top: 2.5%;
+
+        border: 2px solid #AD4569;
+        padding: 24px;
+    }
+    .button {
+        transition: all 1s ease;
+        background: transparent;
+        outline: none;
+        border: 2px white solid;
+        padding: 12px;
+        cursor: pointer;
+        font-size: 1.5vw;
+        font-family: Outfit;
+        border-radius: 15px;
+        color: white;
+    }
+    .button:hover {
+        border-color: #AD4569;
+        color: #AD4569;
+    }
+    .comment-input {
+        padding: 12px;
+        outline: none;
+        border: 2px white solid;
+        border-radius: 15px;
+        color: #AD4569;
+        font-family: Outfit;
+        font-size: 1.5vw;
+        background: transparent;
+        margin-right: 1vw;
+        transition: all 1s ease;
+        width: 25%;
+        margin-bottom: 2vw;
+    }
+    .comment-input:focus {
+        width: 45%;
+        border: 2px solid #AD4569;
+        border-radius: 15px;
+        color: #AD4569;
+    }
+    .section2 {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 40%;
+        gap: 4vw;
+    }
+    .texts {
+        margin: 0;
+        font-size: 1.5vw;
+        color: #AD4569;
+    }
+    .big {
+        font-size: 3vw;
+    }
+    .comment {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .upper-text {
+        display: flex;
+        flex-direction: row;
+        gap: 0.5vw;
+        width: fit-content;
+    }
+</style>
 </html>

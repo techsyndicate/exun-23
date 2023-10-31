@@ -9,6 +9,11 @@ router.get('/', async (req, res) => {
     res.render('forums', {reqChats})
 });
 
+router.get('/post', async (req, res) => {
+    res.render('create_forum')
+})
+
+
 router.post('/post', async (req, res) => {
     const user = req.user,
           text = req.body.text,
