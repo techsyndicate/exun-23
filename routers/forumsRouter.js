@@ -12,9 +12,10 @@ router.get('/', async (req, res) => {
 router.post('/post', async (req, res) => {
     const user = req.user,
           text = req.body.text,
-          name = user.name;
+          name = user.name,
+          heading = req.body.heading
+
     const date = new Date();
-    var chatTime = date.getHours() + ":" + date.getMinutes();
     var chatDateArr = date.toDateString().split(' ');
     var chatDate = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
     
@@ -22,12 +23,49 @@ router.post('/post', async (req, res) => {
         name: name,
         text: text,
         date: chatDate,
-        time: chatTime
+        heading: heading,
+        email: user.email
     })
 
-    // console.log(newChat)
+    console.log(newChat)
     await newChat.save()
     res.redirect('/forums')
 });
+
+router.get('/:id', async (req, res) => {
+    const myCurrentForum = await Chat.findById(req.params.id)
+    res.render('view_forum', {forum: myCurrentForum})
+})
+
+router.post('/reply/:id', async (req, res) => {
+    const {reply} = req.body
+    const foundForum = await Chat.findById(req.params.id)
+    const currentReplies = foundForum.replies
+    const date = new Date();
+    var chatDateArr = date.toDateString().split(' ');
+    var chatDate = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
+    const replyObj = {
+        email: req.user.email,
+        name: req.user.name,
+        reply: reply,
+        date: chatDate
+    }
+    currentReplies.push(replyObj)
+    
+    await Chat.findByIdAndUpdate(req.params.id, {
+        $set: {
+            replies: currentReplies
+        }
+    })
+    res.redirect('/forums/' + req.params.id)
+})
+
+// router.get('/random/:id', async (req, res) => {
+//     await Chat.findByIdAndUpdate(req.params.id, {
+//         $set: {
+//             replies: []
+//         }
+//     })
+// })
 
 module.exports = router;

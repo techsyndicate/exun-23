@@ -4,16 +4,25 @@ const bcrypt = require('bcrypt')
 const { forwardAuthenticated } = require('../utils/auth.js')
 
 router.get("/", forwardAuthenticated, (req, res) => {
-    res.render('register');
+    res.render('register', {errors: []});
 });
 
-router.post("/", forwardAuthenticated, async (req, res) => {
+router.post("/", async (req, res) => {
     try {
         const email = req.body.email
+        const name = req.body.name
         let errors = []
+        if (!req.body.email || !req.body.name || !req.body.password) {
+            errors.push({msg: "Please fill all the credentials."})
+        }
         await User.findOne({ email: email }).then((user) => {
             if (user) {
-            errors.push({ msg: "Account already exists, try logging in" })
+                errors.push({ msg: "Email already exists, try logging in" })
+            }
+        })
+        await User.findOne({ name: name }).then((user) => {
+            if (user) {
+            errors.push({ msg: "Name already exists, try logging in" })
             }
         })
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
@@ -22,6 +31,10 @@ router.post("/", forwardAuthenticated, async (req, res) => {
             email: req.body.email,
             password: hashedPassword,
         });
+
+        if (errors.length > 0) {
+            return res.render('register', {errors})
+        }
         
         await newUser.save();
         console.log(newUser);

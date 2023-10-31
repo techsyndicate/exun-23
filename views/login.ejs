@@ -5,6 +5,9 @@
             <input type="email" placeholder="email" name="email">
             <input type="password" placeholder="password" name="password">
             <button type="submit">Submit</button>
+            <% if (errors.length > 0) { %>
+                <p style="color:red;"><%= errors[0].msg %></p>
+                <% } %>
             <p>Don't have an account <a href="/register">Signup</a></p>
         </form>
     </div>

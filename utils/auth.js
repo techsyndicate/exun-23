@@ -18,12 +18,15 @@ function forwardAuthenticated(req, res, next) {
 
 
 async function loginUser(req, res, next) {
+    const errors = []
     console.log(req.body.email, req.body.password)
     await passport.authenticate('local', (err, user, info) => {
       console.log(err, user, info)
       if (err) throw err;
-      if (!user) res.send([{ msg: info.message }]);
-      else {
+      if (!user) {
+        errors.push({ msg: info.message });
+        res.render('login', {errors})
+      } else {
         req.logIn(user, (err) => {
           if (err) throw err;
           // res.send([{ msg: "Successfully Authenticated", sucess: true }]);
