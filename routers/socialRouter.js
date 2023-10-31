@@ -12,6 +12,7 @@ router.get('/post', (req, res) => {
 })
 
 router.get('/post/:id', async (req, res) => {
+    const user = req.user;
     const reqSocial = await Social.findById(req.params.id)
     var isAdmin = false
     if (req.user.email === reqSocial.email) {
@@ -20,7 +21,7 @@ router.get('/post/:id', async (req, res) => {
     if (!reqSocial) {
         return res.send("Not Found");
     } else {
-        res.render('user_post', {reqSocial, currentUserName: req.user.email, isAdmin: isAdmin})
+        res.render('user_post', {reqSocial, currentUserName: req.user.email, isAdmin: isAdmin, user})
     }
 })
 
@@ -66,7 +67,33 @@ router.post('/post/:id/comment', async (req, res) => {
     })
     console.log("DONE")
     res.redirect('/social/post/' + req.params.id)
-})
+});
+
+router.post('/post/:id/deleteComment/:index', async (req, res) => {
+    console.log("1")
+    const reqPost = await Social.findById(req.params.id);
+    console.log("2")
+    const originalComments = reqPost.comments;
+    console.log("3")
+    const newComments = [];
+    console.log("4")
+    for (let i = 0; i < originalComments.length; i++) {
+        if (i == req.params.index) {
+            continue;
+        }
+        else {
+            newComments.push(originalComments[i]);
+        }
+    }
+    console.log(newComments)
+    await Social.findOneAndUpdate({_id: req.params.id}, {
+        $set: {
+            comments: newComments
+        }
+    });
+
+    res.redirect('/social/post/' + req.params.id);
+}); 
 
 router.post('/likePost/:id', async (req, res) => {
     const weirdArr = []

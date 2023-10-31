@@ -67,12 +67,19 @@
             
             <% for (let i = 0; i < reqSocial.comments.length; i++) { %>
                 <div class="comment">
-                    <div class="upper-text">
-                        <p class="creds"><%= reqSocial.comments[i].name %></p>
-                        <p class="creds">|</p>
-                        <p class="creds"><%= reqSocial.comments[i].timeStamp %></p>
+                    <div class="something">
+                        <div class="upper-text">
+                            <p class="creds"><%= reqSocial.comments[i].name %></p>
+                            <p class="creds">|</p>
+                            <p class="creds"><%= reqSocial.comments[i].timeStamp %></p>
+                        </div>
+                        <p class="text-comment"><%= reqSocial.comments[i].comment %></p>
                     </div>
-                    <p class="text-comment"><%= reqSocial.comments[i].comment %></p>
+                     <% if (user.name === reqSocial.comments[i].name) { %> 
+                        <form style="align-self: flex-end;" action="/social/post/<%= reqSocial.id %>/deleteComment/<%= i %>" method="post">
+                            <button type="submit" class="button-side"><i class="fa-solid fa-trash"></i></button>
+                        </form>
+                     <% } %>
                 </div>
                 <hr width="100%" style="height: 1.5px; background: #AD4569; border: none; margin-bottom: 2vw">
                 <% } %>
@@ -105,11 +112,13 @@
         flex-direction: column;
         margin-top: 10vh;
         gap: 1vw;
+        justify-content: center;
     }
     .button-side:hover {
         color: #AD4569;
     }
     .text-comment {
+        width: fit-content;
         font-size: 2vw;
         margin: 0;
         font-weight: 600;
@@ -185,21 +194,26 @@
     .texts {
         margin: 0;
         font-size: 1.5vw;
+        color: #AD4569;
     }
     .big {
         font-size: 3vw;
     }
     .comment {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
     .upper-text {
         display: flex;
         flex-direction: row;
         gap: 0.5vw;
+        width: fit-content;
     }
     .creds {
         margin: 0;
+        width: auto;
     }
 </style>
 </html>
