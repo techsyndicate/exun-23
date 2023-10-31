@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const stripe = require('stripe')(process.env.STRIPE_SECRET);
 const User = require('../schemas/userSchema')
-const DOMAIN = 'http://localhost:3000/issueBook';
+const DOMAIN = process.env.CONSTANT_DOMAIN + '/issueBook';
 const {sendMail} = require('../utils/mailHelper')
 const ejs = require('ejs');
 

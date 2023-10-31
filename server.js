@@ -23,7 +23,7 @@ const indexRouter = require('./routers/indexRouter'),
     profileRouter = require('./routers/profileRouter.js')
 
 const app = express(),
-    PORT = 3000;
+    PORT = process.env.PORT || 3000;
 
 app.set('view engine', 'ejs')
 app.use(express.static('public'))
