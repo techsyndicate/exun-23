@@ -12,6 +12,9 @@ router.post("/", async (req, res) => {
         const email = req.body.email
         const name = req.body.name
         let errors = []
+        const date = new Date();
+        var chatDateArr = date.toDateString().split(' ');
+        var dateAndTime = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
         if (!req.body.email || !req.body.name || !req.body.password) {
             errors.push({msg: "Please fill all the credentials."})
         }
@@ -30,6 +33,7 @@ router.post("/", async (req, res) => {
             name: req.body.name,
             email: req.body.email,
             password: hashedPassword,
+            createdOn: dateAndTime
         });
 
         if (errors.length > 0) {

@@ -17,6 +17,10 @@ const userSchema = new Schema({
         default: "",
         required: false
     },
+    createdOn: {
+        type: String,
+        required: true
+    },
     returnTime: {
         type: String,
         default: "",

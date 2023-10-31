@@ -12,7 +12,7 @@ function forwardAuthenticated(req, res, next) {
       return next();
     }
     else{
-      res.redirect('/dashboard')
+      res.redirect('/issueBook')
     } 
   }
 
@@ -30,7 +30,7 @@ async function loginUser(req, res, next) {
         req.logIn(user, (err) => {
           if (err) throw err;
           // res.send([{ msg: "Successfully Authenticated", sucess: true }]);
-          res.redirect('/dashboard')
+          res.redirect('/profile')
         });
       }})(req, res, next);
   }

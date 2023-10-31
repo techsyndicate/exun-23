@@ -17,10 +17,10 @@ const indexRouter = require('./routers/indexRouter'),
     loginRouter = require('./routers/loginRouter'),
     regRouter = require('./routers/regRouter.js'),
     issueRouter = require('./routers/issueRouter.js'),
-    forumsRouter = require('./routers/forumsRouter.js'),
-    dashboardRouter = require('./routers/dashboard.js'),
+    forumsRouter = require('./routers/forumsRouter.js')
     socialRouter = require('./routers/socialRouter.js'),
-    journalRouter = require('./routers/journalRouter.js')
+    journalRouter = require('./routers/journalRouter.js'),
+    profileRouter = require('./routers/profileRouter.js')
 
 const app = express(),
     PORT = 3000;
@@ -58,12 +58,12 @@ mongoose.connect(process.env.MONGO_URI)
 // routing
 app.use('/', indexRouter)
 app.use('/register', regRouter)
-app.use('/dashboard', ensureAuthenticated, dashboardRouter)
 app.use('/login', forwardAuthenticated, loginRouter)
 app.use('/issueBook', ensureAuthenticated, issueRouter)
 app.use('/forums', ensureAuthenticated, forumsRouter)
 app.use('/social', ensureAuthenticated, socialRouter)
 app.use('/journal', ensureAuthenticated, journalRouter)
+app.use('/profile', ensureAuthenticated, profileRouter)
 
 
 // testing

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+</head>
+<body>
+    <form action="/profile/edit" method="POST">
+        <input type="email" name="email" placeholder="Email:" value="<%= user.email %>">
+        <input type="text" name="name" placeholder="Name:" value="<%= user.name %>">
+        <input type="password" name="password" placeholder="Change Password:">
+        <input type="password" name="cnfpassword" placeholder="Confirm Password:">
+        <input type="submit" value="Go!">
+        <% if (errors.length > 0) { %>
+        <p><%= errors[0].msg %></p>
+        <% } %>
+    </form>
+</body>
+</html>
