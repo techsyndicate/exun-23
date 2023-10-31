@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View All Journals</title>
+</head>
+<body>
+    <% for (let i = 0; i < myJournals.length; i++) { %>
+        <p>Heading: <%= myJournals[i].heading %></p>
+        <p>Made On: <%= myJournals[i].date %></p>
+        <a href="/journal/view/<%= myJournals[i].id %>">Go To Journal</a>
+    <% } %>
+</body>
+</html>

@@ -18,7 +18,8 @@ const indexRouter = require('./routers/indexRouter'),
     issueRouter = require('./routers/issueRouter.js'),
     forumsRouter = require('./routers/forumsRouter.js'),
     dashboardRouter = require('./routers/dashboard.js'),
-    socialRouter = require('./routers/socialRouter.js')
+    socialRouter = require('./routers/socialRouter.js'),
+    journalRouter = require('./routers/journalRouter.js')
 
 const app = express(),
     PORT = 3000;
@@ -61,6 +62,7 @@ app.use('/login', loginRouter)
 app.use('/issueBook', issueRouter)
 app.use('/forums', forumsRouter)
 app.use('/social', socialRouter)
+app.use('/journal', journalRouter)
 
 
 // testing
