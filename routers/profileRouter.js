@@ -14,7 +14,7 @@ Router.post("/edit", async (req, res) => {
     const errors = []
     var isPasswordChanging = true
     const {name, email, password, cnfpassword} = req.body
-    if (!name || !email) {
+    if (!name || !email || !password || !cnfpassword) {
         errors.push({msg: "Please enter all the credentials"})
     }
     if (!password && !cnfpassword) {
@@ -40,7 +40,7 @@ Router.post("/edit", async (req, res) => {
         })
     }
     if (errors.length > 0) {
-        return res.render('profile', {user: req.user, errors: errors})
+        return res.render('profileEdit', {user: req.user, errors: errors})
     }
     
     res.redirect('/profile')
