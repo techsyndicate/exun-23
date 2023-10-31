@@ -6,7 +6,44 @@
     <title>My Journal</title>
 </head>
 <body>
-    <p><%= myJournal.heading %></p>
-    <p><%= myJournal.text %></p>
+    <%- include('./partials/navbar') %>
+    <p class="heading"><%= myJournal.heading %></p>
+    <div class="content">
+        <p class="texts long"><%= myJournal.text %>.</p>
+    </div>
 </body>
+<style>
+    body {
+        height: 100%;
+        width: 100%;
+    }
+    .heading {
+        font-family: 'cursive2';
+        color: #AD4569;
+        font-size: 5vw;
+        margin: 0;
+        align-self: center;
+        margin-bottom: 2vw;
+    }
+    .content {
+        width: 70%;
+        align-self: center;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+
+        gap: 1vw;
+    }
+    .texts {
+        margin: 0;
+        font-size: 2.5vw;
+        color: #AD4569;
+    }
+    .long  {
+        word-wrap: break-word;
+        width: 100%;
+    }
+</style>
 </html>

@@ -6,10 +6,155 @@
     <title>Journal</title>
 </head>
 <body>
-    <form action="/journal" method="POST">
-        <input type="text" name="heading" placeholder="Enter Heading"><br>
-        <textarea name="text" placeholder="Today, I saw......" rows="12" cols="60" style="resize: none;"></textarea><br>
-        <input type="submit" name="submit" value="Post">
-    </form>
+    <%- include('./partials/navbar') %>
+    <div class="section">
+        <form action="/journal" method="POST">
+            <h1 class="heading-big">NEW JOURNAL</h1>
+            <input type="text" class="" name="heading" placeholder="Enter Heading"><br>
+            <textarea name="text" placeholder="Today, I saw......" rows="5" cols="60" style="resize: none;"></textarea><br>
+            <button type="submit">Post</button>
+        </form>
+    </div>
 </body>
+<style>
+    body {
+        width: 100%;
+        height: 100vh;
+    }
+    .section {
+        display: flex;
+        align-self: center;
+        flex-direction: column;
+        width: 80%;
+    }
+    .heading-big {
+        font-family: 'cursive2';
+        color: #AD4569;
+        font-size: 5vw;
+        align-self: center;
+    }
+    .texts {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+    .go-post {
+        text-decoration: none;
+        color: #698EFF;
+        border: 2px solid #698EFF;
+        border-radius: 5px;
+        padding: 12px;
+        transition: all 500ms ease;
+    }
+    .go-post:hover {
+        color: #AD4569;
+        border-color: #AD4569;
+    }
+    .post {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        justify-content: center;
+        gap: 0.5vw;
+        border-radius: 10px;
+        border: 2px #AD4569 solid;
+        width: 50%;
+        padding: 12px;
+    }
+    .post-link {
+        margin: 0;
+    }
+    .post-text-small {
+        font-size: 1vw;
+        color: #AD4569;
+    }
+    .post-text {
+        font-size: 2vw;
+        color: #AD4569;
+        width: 100%;
+        word-wrap: break-word;
+    }
+    .go-link {
+        text-decoration: none;
+        color: #698EFF;
+        border: 2px solid #698EFF;
+        border-radius: 5px;
+        padding: 12px;
+        transition: all 500ms ease;
+        align-self: center;
+    }
+    .go-link:hover {
+        border-radius: 50px;
+        color: #AD4569;
+        border-color: #AD4569;
+    }
+    .posts {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 3vw;
+        margin-bottom: 2vw;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        /* gap: 5vh; */
+    }
+    input {
+        padding: 12px;
+        outline: none;
+        border: 2px white solid;
+        border-radius: 15px;
+        transition: all 1s ease;
+        color: #AD4569;
+        font-family: Outfit;
+        font-size: 1.5vw;
+        background: transparent;
+    }
+    input:focus {
+        border: 2px solid #AD4569;
+        border-radius: 15px;
+        color: #AD4569;
+    }
+    textarea:focus {
+        border: 2px solid #AD4569;
+        border-radius: 15px;
+        color: #AD4569;
+    }
+    textarea {
+        resize: none;
+        width: 40vw;
+        background: transparent;
+        color: #AD4569;
+        font-family: Outfit;
+        font-size: 1.5vw;
+        padding: 12px;
+        outline: none;
+        border: 2px white solid;
+        border-radius: 15px;
+        transition: all 1s ease;
+    }
+    button {
+        transition: all 1s ease;
+        background: transparent;
+        outline: none;
+        border: 2px white solid;
+        padding: 12px;
+        cursor: pointer;
+        font-size: 1.5vw;
+        font-family: Outfit;
+        border-radius: 15px;
+        color: #AD4569;
+    }
+    button:hover {
+        border-color: #AD4569;
+        color: #AD4569;
+    }
+</style>
 </html>
