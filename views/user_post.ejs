@@ -22,6 +22,11 @@
         <input type="submit" value="Like" name="submit">
         <% } %>
     </form>
+    <% if (isAdmin) { %>
+    <form method="POST" action="/social/deletePost/<%= reqSocial.id %>">
+        <input type="submit" value="Delete" name="delete">
+    </form>
+    <% } %>
     <% for (let i = 0; i < reqSocial.comments.length; i++) { %>
         <p><%= reqSocial.comments[i].comment %> posted by <%= reqSocial.comments[i].email %> on <%= reqSocial.comments[i].timeStamp %></p>
     <% } %>

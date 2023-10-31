@@ -13,11 +13,20 @@ router.get('/post', (req, res) => {
 
 router.get('/post/:id', async (req, res) => {
     const reqSocial = await Social.findById(req.params.id)
+    var isAdmin = false
+    if (req.user.email === reqSocial.email) {
+        isAdmin = true
+    }
     if (!reqSocial) {
         return res.send("Not Found");
     } else {
-        res.render('user_post', {reqSocial, currentUserName: req.user.email})
+        res.render('user_post', {reqSocial, currentUserName: req.user.email, isAdmin: isAdmin})
     }
+})
+
+router.post('/deletePost/:id', async (req, res) => {
+    await Social.findByIdAndDelete(req.params.id);
+    res.redirect('/social');
 })
 
 router.post('/post', async (req, res) => {
