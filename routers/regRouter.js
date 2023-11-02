@@ -1,9 +1,10 @@
 const router = require('express').Router()
 const User = require('../schemas/userSchema.js')
 const bcrypt = require('bcrypt')
-const { forwardAuthenticated } = require('../utils/auth.js')
+const { forwardAuthenticated } = require('../utils/auth.js');
+const emailValidator = require('deep-email-validator');
 
-router.get("/", forwardAuthenticated, (req, res) => {
+router.get("/", forwardAuthenticated, async (req, res) => {
     res.render('register', {errors: []});
 });
 
@@ -18,14 +19,23 @@ router.post("/", async (req, res) => {
         if (!req.body.email || !req.body.name || !req.body.password) {
             errors.push({msg: "Please fill all the credentials."})
         }
+        // if (!validator.validate(email)) {
+        //     console.log("i was here")
+        //     errors.push({msg: "Please enter a correct email."})
+        // }
+        // async function isEmailValid(emailUser) {
+        //     return emailValidator.validate(emailUser)
+        // }
+        // const {valid, reason, validators} = await isEmailValid(email);
+        // console.log(valid)
         await User.findOne({ email: email }).then((user) => {
             if (user) {
-                errors.push({ msg: "Email already exists, try logging in" })
+                errors.push({ msg: "Email already exists, try again." })
             }
         })
         await User.findOne({ name: name }).then((user) => {
             if (user) {
-            errors.push({ msg: "Name already exists, try logging in" })
+            errors.push({ msg: "Name already exists, try again." })
             }
         })
         const hashedPassword = await bcrypt.hash(req.body.password, 10);

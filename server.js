@@ -20,7 +20,8 @@ const indexRouter = require('./routers/indexRouter'),
     forumsRouter = require('./routers/forumsRouter.js'),
     socialRouter = require('./routers/socialRouter.js'),
     journalRouter = require('./routers/journalRouter.js'),
-    profileRouter = require('./routers/profileRouter.js')
+    profileRouter = require('./routers/profileRouter.js'),
+    emergencyRouter = require('./routers/emergencyRouter.js')
 
 const app = express(),
     PORT = process.env.PORT || 3000;
@@ -64,6 +65,7 @@ app.use('/forums', ensureAuthenticated, forumsRouter)
 app.use('/social', ensureAuthenticated, socialRouter)
 app.use('/journal', ensureAuthenticated, journalRouter)
 app.use('/profile', ensureAuthenticated, profileRouter)
+app.use('/emergency', ensureAuthenticated, emergencyRouter)
 
 
 // testing

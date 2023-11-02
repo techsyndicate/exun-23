@@ -30,6 +30,11 @@ const userSchema = new Schema({
         type: Array,
         default: false,
         required: false
+    },
+    emergency: {
+        type: Boolean,
+        default: false,
+        required: true
     }
 })
 
