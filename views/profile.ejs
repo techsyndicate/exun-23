@@ -26,12 +26,22 @@
             <img src="/user.png" class="img-right" alt="">
         </div>
     </div>
-    <a href="/profile/edit" class="go-link">Edit Profile</a>
+    <div class="links-profile">
+        <a href="/profile/edit" class="go-link">Edit Profile</a>
+        <a href="/emergency" class="go-link">EMERGENCY</a>
+    </div>
 </body>
 <style>
     body {
         height: auto;
         width: 100%;
+    }
+    .links-profile {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 2vw;
     }
     .heading {
         font-family: 'cursive2';
