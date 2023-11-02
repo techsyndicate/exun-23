@@ -1,3 +1,35 @@
-hey <%= user.name %> <br>
-BEHENCHOD SUNA THA TEREKO PROBLEM AA GAYI. JA GAND ME LELE HAHAHAHA. <br>
-jkjk, support incoming.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Issued</title>
+    <style>
+        body {
+            background: #eee;
+            font-family: sans-serif;
+        }
+
+        a, a:visited {
+            text-decoration: none;
+            color: blue;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            background: rgba(255, 0, 0, 0.5);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Dear Website Owner,</p>
+        <p>We have just received an emergency request from <%= user.email %>. Kindly look into it and arrange support for the same.<br></p>
+        <p>Regards.</p>
+    </div>
+</body>
+</html>

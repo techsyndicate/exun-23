@@ -1,2 +1,37 @@
-GAND ME LELO. <br>
-<%= user.name %> ko life se koi dikkat h.
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency Issued</title>
+    <style>
+        body {
+            background: #eee;
+            font-family: sans-serif;
+        }
+
+        a, a:visited {
+            text-decoration: none;
+            color: blue;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .container {
+            background: rgba(255, 0, 0, 0.5);
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Dear <span style="color: red"><%= user.name %></span>,</h2>
+        <p>We have just received an emergency request from your end. Support will arrive shortly.</p>
+        <small><i>Not you? <a href="https://exun-submission-ea2974d1d994.herokuapp.com/emergency">Click here</a> to remove emergency.</i></small>
+        <p>Thanks,<br>nuxEland team.</p><br>
+        <p><a href="https://exun-submission-ea2974d1d994.herokuapp.com/">Click Here</a> to visit our website.</p>
+    </div>
+</body>
+</html>
