@@ -1,28 +1,55 @@
 const router = require('express').Router();
 const request = require('request');
+const User = require('../schemas/userSchema')
+const capsuleSchema = require('../schemas/capsuleSchema');
+const chatSchema = require('../schemas/chatSchema');
+const socialSchema = require('../schemas/socialSchema');
+const journalSchema = require('../schemas/journalSchema');
 
 router.get('/', async (req, res) => {
-    var cities = ['london',  'berlin', 'new york', 'delhi', 'paris', 'istanbul', 'bangkok'];
-    var longitude;
-    var latitude;
-    const random = Math.floor(Math.random() * cities.length);
-    console.log(cities[random]);
-    request.get({
-        url: 'https://api.api-ninjas.com/v1/geocoding?city=' + cities[random],
-        headers: {
-          'X-Api-Key': 'BI6P1DOU6JPGd3+QxwcRpQ==gy7UsCrORfi6bFqf'
-        },
-      }, function(error, response, body) {
-        if(error) return console.error('Request failed:', error);
-            else if(response.statusCode != 200) return console.error('Error:', response.statusCode);
-            else {
-                longitude = JSON.parse(body)[0].longitude;
-                latitude = JSON.parse(body)[0].latitude;
-                // console.log(JSON.parse(body)[0].latitude, JSON.parse(body)[0].longitude);
-            }
+    res.render('timeCapsule');
+});
+
+router.post('/', async (req,res) => {
+    const {latitude, longitude} = req.body;
+    const user = req.user
+
+    const newCapsule = new capsuleSchema({
+        name: user.name,
+        email: user.email,
+        latitude: latitude,
+        longitude: longitude
+    })
+
+    await newCapsule.save();
+    
+    const admin = await User.findOne({email: "groverbhavit@gmail.com"})
+    var date = new Date();
+    var chatDateArr = date.toDateString().split(' ');
+    var chatDate = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
+    if(req.body.publicOrNot === "public") {
+        const newChat = new socialSchema({
+            name: admin.name,
+            text: `ANNOUNCEMENT: Everyone, ${user.name} has made a time capsule at a random location! Be sure to find it at time.`,
+            dateAndTime: chatDate,
+            caption: "ANNOUNCEMENT",
+            email: "groverbhavit@gmail.com"
         });
-    console.log(latitude, longitude)
-    res.render('timeCapsule', {latitude: latitude, longitude: longitude});
+
+        await newChat.save()
+    } else {
+        const newJournal = new journalSchema({
+            name: admin.name,
+            text: `Hey there, today i made a time capsule and hid my precious things and messages inside it. It was really fun to do so. I also advise others to do it too. Even if it is found by someone else before i reach there next time, i won't be sad, instead i'll be happier as i might have helped someone. Bye`,
+            date: chatDate,
+            heading: "I made a time capsule!",
+            email: "groverbhavit@gmail.com"
+        });
+
+        await newJournal.save()
+    }
+
+    res.redirect('/timeCapsule')
 });
 
 module.exports = router

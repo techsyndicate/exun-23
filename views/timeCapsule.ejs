@@ -7,8 +7,155 @@
 </head>
 <body>
     <%- include('./partials/navbar') %>
+    <!-- <p id="demo"></p> -->
+    <div class="content">
+        <h1 class="heading">Time Capsule</h1>
+        <div class="sec1">
+            <p class="text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio iure at ab adipisci quae pariatur, magni qui porro quas, similique non delectus minima, ipsa consectetur mollitia recusandae alias temporibus harum!</p>
+            <img src="/timecapsule.png" alt="time capsule" class="timeImg">
+        </div>
+        <h1 class="heading2">Make your own time capsule</h1>
+        <form action="/timeCapsule" method="POST">
+            <div class="sec">
+                <input type="text" value="private" name="publicOrNot" id="public">
+                <a class="a-link" id="publicOrNot">Make it public</a>
+            </div>
 
-    <p><%= longitude %></p>
-    <p><%= latitude %></p>
+            <input type="text" name="latitude" id="latitude" placeholder="Latitude">
+            <div class="sec">
+                <input type="text" name="longitude" id="longitude" placeholder="Longitude">
+                <a class="a-link" id="add">Add both values automatically</a>
+            </div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
 </body>
+<style>
+    body {
+        width: 100%;
+    }
+    .a-link {
+        font-size: 1vw;
+        transition: all 500ms ease;
+        width: fit-content;
+        cursor: pointer;
+    }
+    .a-link:hover {
+        color: #AD4569;
+    }
+    .sec {
+        display: flex;
+        flex-direction: column;
+    }
+    .text {
+        width: 40%;
+        font-size: 2vw;
+    }
+    .content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .sec1 {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        gap: 3vw;
+    }
+    .timeImg{
+        /* aspect-ratio: 1; */
+        width: 30vw;
+        display: flex;
+        /* transform: scale(0.5); */
+        flex-direction: row;
+    }
+    .heading{
+        font-family: cursive2;
+        font-weight: 400;
+        align-self: center;
+        font-size: 5vw;
+        margin-bottom: 0;
+        color: #AD4569;
+    }
+    .heading2{
+        margin-top: 5vw;
+        margin-bottom: 5vw !important;
+        font-family: cursive2;
+        font-weight: 400;
+        align-self: center;
+        font-size: 3vw;
+        /* margin-bottom: 0; */
+        color: #AD4569;
+    }
+    form {
+        align-self: center;
+        margin-bottom: 4vw;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 2vw;
+    }
+    input {
+        padding: 12px;
+        outline: none;
+        border: 2px white solid;
+        border-radius: 15px;
+        transition: all 1s ease;
+        color: #AD4569;
+        font-family: Outfit;
+        font-size: 1.5vw;
+        background: transparent;
+    }
+    input:focus {
+        border: 2px solid #AD4569;
+        border-radius: 15px;
+        color: #AD4569;
+    }
+    button {
+        transition: all 1s ease;
+        background: transparent;
+        outline: none;
+        border: 2px white solid;
+        padding: 12px;
+        cursor: pointer;
+        font-size: 1.5vw;
+        font-family: Outfit;
+        border-radius: 15px;
+        color: #AD4569;
+    }
+    button:hover {
+        border-color: #AD4569;
+        color: #AD4569;
+    }
+</style>
+<script>
+    const longitude = document.getElementById('longitude')
+    const latitude = document.getElementById('latitude')
+    const add = document.getElementById('add');
+    const publicOrNot = document.getElementById('publicOrNot');
+    const public = document.getElementById('public')
+
+    publicOrNot.addEventListener('click', () => {
+        public.value = "public";
+    });
+
+    add.addEventListener('click', getLocation)
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      }
+    }
+    
+    function showPosition(position) {
+        latitude.value = position.coords.latitude;
+        longitude.value = position.coords.longitude;
+        console.log(position.coords.latitude, position.coords.longitude)
+    }
+</script>
 </html>
