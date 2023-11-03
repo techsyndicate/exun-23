@@ -7,7 +7,8 @@ const socialSchema = require('../schemas/socialSchema');
 const journalSchema = require('../schemas/journalSchema');
 
 router.get('/', async (req, res) => {
-    res.render('timeCapsule');
+    const errors = []
+    res.render('timeCapsule', {errors: errors});
 });
 
 router.post('/', async (req,res) => {
@@ -50,6 +51,49 @@ router.post('/', async (req,res) => {
     }
 
     res.redirect('/timeCapsule')
+});
+
+router.get('/foundOne', async (req,res) => {
+    const errors = []
+    res.render('found', {errors: errors})
+});
+
+router.post('/foundOne', async (req,res) => {
+    const {latitude, longitude} = req.body;
+    var errors = []
+    const all_users = await capsuleSchema.find({});
+    var found = false
+    const admin = await User.findOne({email: "groverbhavit@gmail.com"})
+    var date = new Date();
+    var chatDateArr = date.toDateString().split(' ');
+    var chatDate = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
+    for (let i = 0; i < all_users.length; i++) {
+        if (all_users[i].latitude === latitude && all_users[i].longitude === longitude) {
+            if (all_users[i].email === req.user.email) {
+                errors.push("You can't enter the co-ordinates of your own time capsule.");
+                break
+            }
+            errors.push("Congratulations for finding the time capsule!")
+            found = true;
+            const newChat = new socialSchema({
+                name: admin.name,
+                text: `ANNOUNCEMENT: Everyone, ${req.user.name} has found a time capsule at a random location!`,
+                dateAndTime: chatDate,
+                caption: "ANNOUNCEMENT",
+                email: "groverbhavit@gmail.com"
+            });
+
+            await newChat.save()
+            await capsuleSchema.deleteOne({email: all_users[i].email})
+            break
+        }
+    }
+
+    if (!found) {
+        errors.push("Oops! there is no time capsule here.")
+    }
+
+    res.render('found', {errors: errors})
 });
 
 module.exports = router
