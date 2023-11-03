@@ -40,7 +40,7 @@ router.post('/', async (req,res) => {
     } else {
         const newJournal = new journalSchema({
             name: admin.name,
-            text: `Hey there, today i made a time capsule and hid my precious things and messages inside it. It was really fun to do so. I also advise others to do it too. Even if it is found by someone else before i reach there next time, i won't be sad, instead i'll be happier as i might have helped someone. Bye`,
+            text: `Hey there, today i made a time capsule and hid my precious things and messages inside it at location ${latitude}, ${longitude}. It was really fun to do so. I also advise others to do it too. Even if it is found by someone else before i reach there next time, i won't be sad, instead i'll be happier as i might have helped someone. Bye`,
             date: chatDate,
             heading: "I made a time capsule!",
             email: "groverbhavit@gmail.com"
