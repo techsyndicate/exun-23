@@ -25,21 +25,22 @@
         <% } %>
     </form>
     <% if (isAdmin) { %>
-    <form method="POST" action="/social/deletePost/<%= reqSocial.id %>">
+        <form method="POST" action="/social/deletePost/<%= reqSocial.id %>">
         <input type="submit" value="Delete" name="delete">
     </form>
     <% } %>
     <% for (let i = 0; i < reqSocial.comments.length; i++) { %>
         <p><%= reqSocial.comments[i].comment %> posted by <%= reqSocial.comments[i].email %> on <%= reqSocial.comments[i].timeStamp %></p>
-    <% } %> -->
-
-    <div class="content">
-        <div class="post">
+        <% } %> -->
+        
+        <div class="content">
+            <div class="post">
             <div class="section">
                 <p class="texts">Posted by <b><%= reqSocial.name %></b> on <b><%= reqSocial.dateAndTime %></b></p>
                 <p class="texts big"><B><%= reqSocial.caption %></B></p>
                 <br>
                 <p class="texts" id="demo_p"><%= reqSocial.text %></p>
+                <img src="<%= reqSocial.imglink %>" alt="">
             </div>
             <div class="section2">
                 <form method="POST" style="display: flex; flex-direction: row; gap: 1vw; align-items: center;" action="/social/likePost/<%= reqSocial.id %>">
@@ -214,6 +215,11 @@
     .creds {
         margin: 0;
         width: auto;
+    }
+    img {
+        width: 25vw;
+        margin-top: 2vw;
+        object-fit: cover;
     }
 </style>
 </html>

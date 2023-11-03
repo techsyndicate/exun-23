@@ -47,7 +47,7 @@ router.post('/return', async (req,res) => {
   const waitlist = book.waitlist
   var date =  new Date()
   const date2 = new Date()
-  date2.setDate(date2.getDate() + 7);
+  date2.setDate(date2.getDate() + 1);
   var issueDate;
     issueDate = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear()
     var returnDate = (date2.getDate()) + '/' + (date2.getMonth() + 1) + '/' + date2.getFullYear()

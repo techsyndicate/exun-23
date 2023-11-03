@@ -26,19 +26,29 @@ router.get('/post/:id', async (req, res) => {
 })
 
 router.post('/deletePost/:id', async (req, res) => {
-    await Social.findByIdAndDelete(req.params.id);
+    
+    console.log(req.params.id)
+    try {
+        await Social.findByIdAndDelete(req.params.id);
+    } catch (e) {
+        console.log(e)
+    }
     res.redirect('/social');
 })
 
 router.post('/post', async (req, res) => {
     const {caption, text} = req.body
+    var imglink = req.body.imglink
     const newText = text.replace(/\n/g, '<br>')
     const email = req.user.email
     const name = req.user.name
     const date = new Date();
     var chatDateArr = date.toDateString().split(' ');
     var dateAndTime = chatDateArr[2] + ' ' + chatDateArr[1] + ' ' + chatDateArr[3];
-    const newPost = new Social({text: newText, caption, email, dateAndTime, name})
+    if (imglink.length === '') {
+        imglink = ""
+    }
+    const newPost = new Social({text: newText, caption, email, dateAndTime, name, imglink});
     await newPost.save()
     console.log(newPost)
     res.redirect("/social/post/" + newPost.id)

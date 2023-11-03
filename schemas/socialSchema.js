@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const reqString = { type: String, required: true };
-const nonReqString = { type: String, required: false };
+const reqString = { type: String, required: true, default: "" };
+const nonReqString = { type: String, required: false, default: "" };
 
 const socialSchema = new Schema({
     email: reqString,
@@ -23,7 +23,8 @@ const socialSchema = new Schema({
         type: Array,
         required: true,
         default: []
-    }
+    },
+    imglink: nonReqString
 })
 
 
