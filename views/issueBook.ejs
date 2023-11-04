@@ -31,10 +31,10 @@
 <hr width="100%" style="height: 1px; background: #AD4569; border: none;">
 <div class="waitlist">
     <h1 class="doosra">WAITLIST</h1>
-    <p>Expected time to get the book: <%= waitlist.length %> days</p>
+    <p>Expected time to get the book: <%= waittime %> day/s</p>
     <ul class="wailistList">
         <% for (let i = 0; i < waitlist.length; i++) { %>
-            <li class="wailistUser"><%= waittime %></li>
+            <li class="wailistUser"><%= waitlist[i] %></li>
             <% } %>
         </ul>
     </div>

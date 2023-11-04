@@ -45,7 +45,7 @@ router.get('/', async (req,res) => {
   }
   // console.log(book.waitlist)
   // for (var i = 0; i < book.length)
-  res.render('issueBook', {user, waitlist, canIssue, nameInWaitlist});
+  res.render('issueBook', {user, waitlist, canIssue, nameInWaitlist, waittime});
 });
 
 router.post('/return', async (req,res) => {
