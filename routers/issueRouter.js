@@ -29,12 +29,19 @@ router.get('/', async (req,res) => {
   console.log(users)
   const waitlist = book.waitlist;
   var nameInWaitlist = false;
-  var waittime = watlist.length
-
+  var waittime = waitlist.length
+  
+  if (!canIssue) {
+    waittime += 1
+  } 
+  
   for (let i = 0; i < waitlist.length; i++) {
     if (user.email === waitlist[i]) {
       nameInWaitlist = true;
     }
+  }
+  if (nameInWaitlist) {
+    waittime -= 1
   }
   // console.log(book.waitlist)
   // for (var i = 0; i < book.length)
