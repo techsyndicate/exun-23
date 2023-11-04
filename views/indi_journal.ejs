@@ -7,15 +7,47 @@
 </head>
 <body>
     <%- include('./partials/navbar') %>
-    <p class="heading"><%= myJournal.heading %></p>
-    <div class="content">
-        <p class="texts long"><%= myJournal.text %>.</p>
+    <div class="container">
+        <div class="box1">
+            <p>Posted on: <b><%= myJournal.date %></b></p>
+            <p class="heading"><%= myJournal.heading %></p>
+        </div>
+        <div class="content">
+            <p class="texts long"><%= myJournal.text %>.</p>
+        </div>
     </div>
 </body>
 <style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
     body {
-        height: 100%;
+        height: 100vh;
         width: 100%;
+    }
+    .container {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .box1 {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0;
+
+        align-self: center;
+        padding: 12px;
+        border: #AD4569 2px solid;
+        border-radius: 10px;
+        padding: 12px;
+        margin: 2vw 0;
+        
     }
     .heading {
         font-family: 'cursive2';
@@ -23,25 +55,33 @@
         font-size: 5vw;
         margin: 0;
         align-self: center;
-        margin-bottom: 2vw;
+        /* margin-bottom: 2vw; */
+        text-align: center;
+        /* margin-top: 4vw; */
     }
     .content {
-        width: 70%;
+        width: 50%;
+        margin-top: 3vw;
         align-self: center;
-        height: 100%;
+        /* height: 100%; */
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: center;
         justify-content: center;
 
         gap: 1vw;
+        /* border: #AD4569 2px solid;
+        border-radius: 10px;
+        padding: 12px; */
     }
     .texts {
         margin: 0;
         font-size: 2.5vw;
         color: #AD4569;
+        text-align: center;
     }
     .long  {
+        text-align: center;
         word-wrap: break-word;
         width: 100%;
     }
