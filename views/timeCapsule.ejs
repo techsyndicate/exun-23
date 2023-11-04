@@ -17,7 +17,8 @@
         <h1 class="heading2">Make your own time capsule</h1>
         <form action="/timeCapsule" method="POST">
             <div class="sec">
-                <input type="text" value="private" name="publicOrNot" id="public">
+                <input type="text" value="private" disabled="true" id="public">
+                <input type="text" style="display: none;" value="private" name="publicOrNot" id="public2">
                 <a class="a-link" id="publicOrNot">Make it public</a>
             </div>
 
@@ -141,9 +142,11 @@
     const add = document.getElementById('add');
     const publicOrNot = document.getElementById('publicOrNot');
     const public = document.getElementById('public')
+    const public2 = document.getElementById('public2')
 
     publicOrNot.addEventListener('click', () => {
         public.value = "public";
+        public2.value = "public";
     });
 
     add.addEventListener('click', getLocation)

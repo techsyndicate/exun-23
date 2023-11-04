@@ -31,7 +31,7 @@ router.post('/', async (req,res) => {
     if(req.body.publicOrNot === "public") {
         const newChat = new socialSchema({
             name: admin.name,
-            text: `ANNOUNCEMENT: Everyone, ${user.name} has made a time capsule at a random location! Be sure to find it at time.`,
+            text: `ANNOUNCEMENT: Everyone, ${user.name} has made a time capsule at a random location! Be sure to find it on time.`,
             dateAndTime: chatDate,
             caption: "ANNOUNCEMENT",
             email: "groverbhavit@gmail.com"
@@ -40,11 +40,11 @@ router.post('/', async (req,res) => {
         await newChat.save()
     } else {
         const newJournal = new journalSchema({
-            name: admin.name,
+            name: user.name,
             text: `Hey there, today i made a time capsule and hid my precious things and messages inside it at location ${latitude}, ${longitude}. It was really fun to do so. I also advise others to do it too. Even if it is found by someone else before i reach there next time, i won't be sad, instead i'll be happier as i might have helped someone. Bye`,
             date: chatDate,
             heading: "I made a time capsule!",
-            email: "groverbhavit@gmail.com"
+            email: user.email
         });
 
         await newJournal.save()

@@ -14,8 +14,8 @@ router.get('/', async (req,res) => {
   const user = req.user,
         book = await User.findOne({book: "nuxEland"});
 
-  const users = await User.find({})
-  var canIssue = true;
+        const users = await User.find({})
+        var canIssue = true;
   for (var i = 0; i < users.length; i++) {
     if (users[i].issued) {
       if (users[i].email === user.email) {
@@ -29,6 +29,7 @@ router.get('/', async (req,res) => {
   console.log(users)
   const waitlist = book.waitlist;
   var nameInWaitlist = false;
+  var waittime = watlist.length
 
   for (let i = 0; i < waitlist.length; i++) {
     if (user.email === waitlist[i]) {
